@@ -1,0 +1,9 @@
+{{define "err500"}}{{template "base" .}}{{end}}
+
+{{define "content"}}
+<div class="empty">
+  <h2>500 — Something went wrong 💥</h2>
+  <p class="muted">Please try again later.</p>
+  {{if .Err}}<pre class="muted">{{.Err}}</pre>{{end}}
+</div>
+{{end}}

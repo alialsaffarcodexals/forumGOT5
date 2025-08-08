@@ -1,0 +1,58 @@
+{{define "post"}}{{template "base" .}}{{end}}
+
+{{define "content"}}
+<article class="post">
+  <header>
+    <h2>{{.Title}}</h2>
+    <div class="meta">
+      <span>By 👤 {{.Author}}</span>
+      <span>🗓 {{.Created.Format "2006-01-02 15:04"}}</span>
+      <span class="cats">
+        {{range .Categories}}<span class="tag">#{{.}}</span>{{end}}
+      </span>
+    </div>
+  </header>
+  <div class="body">{{.Content}}</div>
+  <div class="reactions">
+    <form method="post" action="/react">
+      <input type="hidden" name="type" value="post">
+      <input type="hidden" name="id" value="{{.PostID}}">
+      <button class="btn ghost" name="value" value="1">👍 {{.Likes}}</button>
+      <button class="btn ghost" name="value" value="-1">👎 {{.Dislikes}}</button>
+    </form>
+  </div>
+</article>
+
+<section class="comments">
+  <h3>Comments 💬</h3>
+  {{if .Logged}}
+  <form class="form" method="post" action="/comment/create">
+    <input type="hidden" name="post_id" value="{{.PostID}}">
+    <label>Your comment
+      <textarea name="content" rows="4" required></textarea>
+    </label>
+    <button class="btn">Reply ➤</button>
+  </form>
+  {{else}}
+  <p class="muted">Please <a href="/login">log in</a> to comment.</p>
+  {{end}}
+
+  {{range .Comments}}
+  <div class="comment hoverable">
+    <div class="c-head">
+      <span>👤 {{.Author}}</span>
+      <span>🗓 {{.Created.Format "2006-01-02 15:04"}}</span>
+    </div>
+    <div class="c-body">{{.Content}}</div>
+    <div class="c-actions">
+      <form method="post" action="/react">
+        <input type="hidden" name="type" value="comment">
+        <input type="hidden" name="id" value="{{.ID}}">
+        <button class="btn ghost" name="value" value="1">👍 {{.Likes}}</button>
+        <button class="btn ghost" name="value" value="-1">👎 {{.Dislikes}}</button>
+      </form>
+    </div>
+  </div>
+  {{end}}
+</section>
+{{end}}

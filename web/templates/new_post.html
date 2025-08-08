@@ -1,0 +1,24 @@
+{{define "new_post"}}{{template "base" .}}{{end}}
+
+{{define "content"}}
+<h2>New Post 📝</h2>
+<form class="form" method="post" action="/post/create">
+  <label>Title
+    <input type="text" name="title" maxlength="120" required>
+  </label>
+  <label>Content
+    <textarea name="content" rows="8" required></textarea>
+  </label>
+
+  <fieldset>
+    <legend>Categories 🗂 (choose any)</legend>
+    <div class="chips">
+      {{range .Cats}}
+        <label class="chip"><input type="checkbox" name="cats" value="{{.ID}}"> {{.Name}}</label>
+      {{end}}
+    </div>
+  </fieldset>
+
+  <button class="btn primary">Publish 🚀</button>
+</form>
+{{end}}

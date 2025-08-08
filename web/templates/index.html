@@ -1,0 +1,39 @@
+{{define "home"}}{{template "base" .}}{{end}}
+
+{{define "content"}}
+<section class="hero">
+  <h1>Welcome to the Forum ✨</h1>
+  <p class="muted">Share ideas, ask questions, showcase projects — be nice, have fun.</p>
+</section>
+
+<form class="filters" action="/" method="get">
+  <div class="row">
+    <label>Category
+      <select name="cat">
+        <option value="">All</option>
+        {{range .Cats}}<option value="{{.}}">{{.}}</option>{{end}}
+      </select>
+    </label>
+    {{if .Logged}}
+    <label class="check"><input type="checkbox" name="mine" value="1" {{if eq (index .Query "mine") "1"}}checked{{end}}> My posts</label>
+    <label class="check"><input type="checkbox" name="liked" value="1" {{if eq (index .Query "liked") "1"}}checked{{end}}> Liked</label>
+    {{end}}
+    <button class="btn">Filter 🔎</button>
+  </div>
+</form>
+
+<section class="cards">
+  {{if not .Posts}}<p class="muted">No posts yet. Be the first! 👉 <a href="/post/new">Create one</a></p>{{end}}
+  {{range .Posts}}
+  <article class="card hoverable">
+    <header><a class="title" href="/post/{{.ID}}">{{.Title}}</a></header>
+    <p class="snippet">{{.Content}}</p>
+    <footer>
+      <span>👤 {{.Author}}</span>
+      <span>🗓 {{.Created.Format "2006-01-02 15:04"}}</span>
+      <span>👍 {{.Likes}} &nbsp; 👎 {{.Dislikes}}</span>
+    </footer>
+  </article>
+  {{end}}
+</section>
+{{end}}
