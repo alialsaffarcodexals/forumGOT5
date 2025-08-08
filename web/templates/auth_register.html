@@ -1,17 +1,15 @@
-{{define "content"}}
+{{define "register"}}
 <h1>Register</h1>
 <form method="post" action="/register" class="card">
-  <label>Email</label>
-  <input type="email" name="email" required>
-
-  <label>Username</label>
-  <input type="text" name="username" required>
-
-  <label>Password</label>
-  <input type="password" name="password" required>
-
-  <button type="submit">Create account</button>
+  <label>Email
+    <input type="email" name="email" required>
+  </label>
+  <label>Username
+    <input type="text" name="username" required>
+  </label>
+  <label>Password
+    <input type="password" name="password" required>
+  </label>
+  <button class="btn primary" type="submit">Create account</button>
 </form>
 {{end}}
-
-{{define "register"}}{{template "base" .}}{{end}}

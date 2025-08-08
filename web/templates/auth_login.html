@@ -1,19 +1,13 @@
-{{define "content"}}
+{{define "login"}}
 <h1>Login</h1>
 <form method="post" action="/login" class="card">
-  <label>Email</label>
-  <input type="email" name="email" required>
-
-  <label>Password</label>
-  <input type="password" name="password" required>
-
-  <button type="submit">Log in</button>
+  <label>Email
+    <input type="email" name="email" required>
+  </label>
+  <label>Password
+    <input type="password" name="password" required>
+  </label>
+  <button class="btn primary" type="submit">Log in</button>
 </form>
-
-{{if .Registered}}
-<p class="notice">Registration successful — please log in.</p>
+{{if .Registered}}<div class="alert success">Registration successful — please log in.</div>{{end}}
 {{end}}
-{{end}}
-
-{{/* THIS is the crucial wrapper so ExecuteTemplate("login", ...) works */}}
-{{define "login"}}{{template "base" .}}{{end}}

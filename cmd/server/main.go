@@ -1,15 +1,14 @@
 package main
 
 import (
-	"log"
-	"net/http"
-	"os"
-	"path/filepath"
-	"time"
+    "log"
+    "net/http"
+    "os"
+    "time"
 
-	"forum/internal/auth"
-	"forum/internal/db"
-	"forum/internal/handlers"
+    "forum/internal/auth"
+    "forum/internal/db"
+    "forum/internal/handlers"
 )
 
 func main() {
@@ -63,7 +62,10 @@ func main() {
 	}
 
 	log.Printf("listening on %s", addr)
-	err = http.ListenAndServe(addr, handlers.WithRecover(http.DefaultServeMux, filepath.Join("web", "templates", "500.html")))
+    // Wrap the default mux with a recovery middleware.  If any handler panics
+    // the server will return a generic 500 response instead of crashing.  See
+    // internal/handlers/middleware.go for details.
+    err = http.ListenAndServe(addr, handlers.WithRecover(http.DefaultServeMux))
 	if err != nil {
 		log.Fatal(err)
 	}

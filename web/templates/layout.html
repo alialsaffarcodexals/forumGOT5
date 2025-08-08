@@ -7,10 +7,45 @@
   <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 <body class="{{.Theme}}">
-  <!-- header / nav omitted for brevity -->
+  <!-- sidebar + topbar -->
+  <input id="nav" type="checkbox" class="nav-toggle">
+  <aside class="sidebar">
+    <div class="brand">💬 Forum</div>
+    <nav>
+      <a href="/">🏠 Home</a>
+      <a href="/post/new">📝 New Post</a>
+      <a href="/filter/mine">👨‍💻 My Posts</a>
+      <a href="/filter/liked">❤️ Liked</a>
+      <details open>
+        <summary>▶︎ Categories</summary>
+        <div class="cats">
+          {{range .Cats}}<a href="/?cat={{.}}"># {{.}}</a>{{end}}
+        </div>
+      </details>
+    </nav>
+    <div class="footer">
+      <form action="/toggle-theme" method="post">
+        <button class="btn" type="submit">🌓 Theme</button>
+      </form>
+      <div class="mini">Built with Go · SQLite</div>
+    </div>
+  </aside>
 
-  <main class="container">
-    {{block "content" .}}{{end}}
+  <header class="topbar">
+    <label class="hamburger" for="nav">☰</label>
+    <div class="spacer"></div>
+    <div class="auth">
+      {{if .Logged}}
+        <a class="btn" href="/logout">🚪 Logout</a>
+      {{else}}
+        <a class="btn" href="/login">🔑 Login</a>
+        <a class="btn primary" href="/register">✨ Register</a>
+      {{end}}
+    </div>
+  </header>
+
+  <main class="content">
+    {{template "content" .}}
   </main>
 </body>
 </html>

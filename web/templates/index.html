@@ -1,6 +1,4 @@
-{{define "home"}}{{template "base" .}}{{end}}
-
-{{define "content"}}
+{{define "home_body"}}
 <section class="hero">
   <h1>Welcome to the Forum ✨</h1>
   <p class="muted">Share ideas, ask questions, showcase projects — be nice, have fun.</p>
@@ -11,12 +9,12 @@
     <label>Category
       <select name="cat">
         <option value="">All</option>
-        {{range .Cats}}<option value="{{.}}">{{.}}</option>{{end}}
+        {{range .Cats}}<option value="{{.}}" {{if eq (index $.Query "cat") .}}selected{{end}}>{{.}}</option>{{end}}
       </select>
     </label>
     {{if .Logged}}
-    <label class="check"><input type="checkbox" name="mine" value="1" {{if eq (index .Query "mine") "1"}}checked{{end}}> My posts</label>
-    <label class="check"><input type="checkbox" name="liked" value="1" {{if eq (index .Query "liked") "1"}}checked{{end}}> Liked</label>
+      <label class="check"><input type="checkbox" name="mine" value="1" {{if eq (index .Query "mine") "1"}}checked{{end}}> My posts</label>
+      <label class="check"><input type="checkbox" name="liked" value="1" {{if eq (index .Query "liked") "1"}}checked{{end}}> Liked</label>
     {{end}}
     <button class="btn">Filter 🔎</button>
   </div>

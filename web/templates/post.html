@@ -1,15 +1,11 @@
-{{define "post"}}{{template "base" .}}{{end}}
-
-{{define "content"}}
+{{define "post_body"}}
 <article class="post">
   <header>
     <h2>{{.Title}}</h2>
     <div class="meta">
       <span>By 👤 {{.Author}}</span>
       <span>🗓 {{.Created.Format "2006-01-02 15:04"}}</span>
-      <span class="cats">
-        {{range .Categories}}<span class="tag">#{{.}}</span>{{end}}
-      </span>
+      <span class="cats">{{range .Categories}}<span class="tag">#{{.}}</span>{{end}}</span>
     </div>
   </header>
   <div class="body">{{.Content}}</div>
